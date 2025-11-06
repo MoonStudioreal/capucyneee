@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Capucyne — Profil sportif</title>
+  <meta name="description" content="Capucyne — demi-fond, record de France au mile. Fan-made profile (avec permission)." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#05060a;
+      --panel:#0b1220;
+      --muted:#9aa7b2;
+      --glass: rgba(255,255,255,0.03);
+      --accent-cyan:#00e6ff;
+      --accent-purple:#8b5cf6;
+      --accent-pink:#ff6a9a;
+      --glow: 0 8px 40px rgba(139,92,246,0.12);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#e8eef6;background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(139,92,246,0.06), transparent 6%),
+      radial-gradient(900px 500px at 90% 90%, rgba(0,230,255,0.04), transparent 6%),
+      linear-gradient(180deg,var(--bg) 0%, #071025 100%);}
+    a{color:inherit}
+    /* layout */
+    .app{display:flex;min-height:100vh;gap:24px}
+    /* sidebar */
+    .sidebar{width:260px;padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(6px);border-right:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:60px;height:60px;border-radius:12px;background:linear-gradient(135deg,var(--accent-purple),var(--accent-cyan));display:flex;align-items:center;justify-content:center;color:#051427;font-weight:900;font-size:22px;box-shadow:0 6px 30px rgba(139,92,246,0.12)}
+    .brand h1{margin:0;font-size:18px}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+    .nav{margin-top:18px;display:flex;flex-direction:column;gap:6px}
+    .nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:700;transition:all .18s}
+    .nav a.active{background:linear-gradient(90deg, rgba(139,92,246,0.06), rgba(0,230,255,0.04));color:#fff;box-shadow:var(--glow)}
+    .nav a:hover{transform:translateY(-3px);color:#fff}
+    .nav .icon{width:28px;text-align:center}
+    /* language */
+    .lang{display:flex;gap:8px;align-items:center;margin-top:auto}
+    .lang button{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 10px;border-radius:10px;cursor:pointer;font-weight:800}
+    .lang button.active{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));color:#041423;border:0;box-shadow:0 10px 30px rgba(255,106,154,0.08)}
+    /* main */
+    main{flex:1;padding:36px;overflow:auto}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .hero{display:flex;gap:22px;align-items:center}
+    .hero-left{flex:1}
+    .hero h2{margin:0;font-size:30px;letter-spacing:-0.4px}
+    .hero p{color:var(--muted);margin:8px 0 0}
+    .cta{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--accent-purple),var(--accent-pink));color:#051427;font-weight:800;margin-top:16px;cursor:pointer}
+    .thumb{width:340px;border-radius:12px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,0.03)}
+    .thumb img{width:100%;height:200px;object-fit:contain;display:block;background-color:rgba(255,255,255,0.03);border-radius:10px;padding:4px;}
+    /* sections */
+    .section{display:none;animation:fade .35s ease both}
+    .section.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+    .stat{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px}
+    /* gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;transition:transform .25s ease,box-shadow .25s}
+    .gallery img:hover{transform:scale(1.03);box-shadow:0 16px 50px rgba(0,0,0,0.6)}
+    /* record highlight */
+    .record{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px;border-radius:12px;background:
+      linear-gradient(90deg, rgba(139,92,246,0.06), rgba(255,106,154,0.03));border:1px solid rgba(255,255,255,0.03)}
+    .record .left{flex:1}
+    .record .badge{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));color:#041423;padding:10px 14px;border-radius:999px;font-weight:900;box-shadow:0 10px 30px rgba(0,230,255,0.06)}
+    /* footer */
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    /* responsive */
+    @media (max-width:980px){.sidebar{display:none}.app{flex-direction:column}.thumb{width:100%}.hero{flex-direction:column}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" aria-label="Main sidebar">
+      <div>
+        <div class="brand">
+          <div class="logo">C</div>
+          <div>
+            <h1 id="brandTitle">Capucyne</h1>
+            <p id="brandSub">Profil sportif • Fan-made</p>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#home" data-target="home" class="active" id="nav-home"><span class="icon">🏠</span> <span class="nav-label">Home</span></a>
+          <a href="#gallery" data-target="gallery" id="nav-gallery"><span class="icon">📸</span> <span class="nav-label">Galerie</span></a>
+          <a href="#about" data-target="about" id="nav-about"><span class="icon">👤</span> <span class="nav-label">À propos</span></a>
+          <a href="#results" data-target="results" id="nav-results"><span class="icon">🏅</span> <span class="nav-label">Résultats</span></a>
+          <a href="#contact" data-target="contact" id="nav-contact"><span class="icon">✉️</span> <span class="nav-label">Contact</span></a>
+        </nav>
+      </div>
+
+      <div class="lang" role="tablist" aria-label="Language selector">
+        <button data-lang="fr" class="active">🇫🇷 FR</button>
+        <button data-lang="en">🇬🇧 EN</button>
+        <button data-lang="hu">🇭🇺 HU</button>
+      </div>
+    </aside>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="section active">
+        <div class="card hero">
+          <div class="hero-left">
+            <h2 id="homeTitle">Athlète — Demi-fond</h2>
+            <p id="homeDesc" class="muted">3 ans d'athlétisme — cross et 1000 m. Record de France au mile.</p>
+            <div class="cta" id="homeCta">Voir la galerie</div>
+            <div style="margin-top:14px" class="muted">Style demandé : sportif • moderne • strass ✨</div>
+          </div>
+          <div class="thumb">
+            <img id="heroImg" src="https://scontent.fbud7-3.fna.fbcdn.net/v/t1.15752-9/575677431_836676882201495_8414293404903388320_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=heDHzd_o6ToQ7kNvwE6F3P5&_nc_oc=AdmMRbozEAyuKjqa5LO0SsNEd8ovCZDaIMpEdyHIO07fzfdoUFwPpZjZRPNE6jA4gUA&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fbud7-3.fna&oh=03_Q7cD3wHtczojZg9jptIF2_IuZBqDEMVLSiNfJtCTnn3XxtEHSA&oe=6932F8B0" alt="Capucyne hero">
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="gallery" class="section">
+        <div class="card">
+          <h2 id="galleryTitle">Galerie</h2>
+          <p id="galleryDesc" class="muted">Photos d'entraînement et de compétition — n'ajoutez que les images avec son accord.</p>
+          <div class="gallery" id="galleryGrid">
+            <!-- Replace these src with the photos she sends -->
+            <img src="https://scontent.fbud7-4.fna.fbcdn.net/v/t1.15752-9/576766534_1163372858557410_4036354070607231208_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Z6HEyzuq4r8Q7kNvwExMdi8&_nc_oc=AdlDVvxkiVfJaVVZpxaKJoPpT7al5yNei9w2rWFY91hnhF5aVhSnjbLIxqBry9BDQEc&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fbud7-4.fna&oh=03_Q7cD3wE6K17jam-6GuREdL-HCub1hj22i5JaMB84EseHubTOEQ&oe=69343C07" alt="run1">
+            <img src="https://scontent.fbud7-3.fna.fbcdn.net/v/t1.15752-9/575677431_836676882201495_8414293404903388320_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=heDHzd_o6ToQ7kNvwE6F3P5&_nc_oc=AdmMRbozEAyuKjqa5LO0SsNEd8ovCZDaIMpEdyHIO07fzfdoUFwPpZjZRPNE6jA4gUA&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fbud7-3.fna&oh=03_Q7cD3wHfInomsmhvWir8QO1J45elVAWk6b-k4by2fNGWDeOCQw&oe=69344A30" alt="run2">
+            <img src="https://scontent.fbud7-4.fna.fbcdn.net/v/t1.15752-9/574807898_1534137601112384_7132894773997454900_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=0024fc&_nc_ohc=cwMrshy4GiIQ7kNvwH7ADoU&_nc_oc=AdnR3UwWBoxIdNNqpdVjGH6u92rsif1cgSLXaFEZsHj2N6LZ_ADv01j7pnA-v617r8c&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fbud7-4.fna&oh=03_Q7cD3wFiqqOjuQWu2SLmbYK0DFkjadHi8AkqlcxRRFgRW6fcLA&oe=69342794" alt="run3">
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section">
+        <div class="card">
+          <h2 id="aboutTitle">À propos</h2>
+          <p id="aboutDesc" class="muted">Capucyne pratique l'athlétisme depuis 3 ans. Elle se spécialise en demi-fond (cross et 1000 m) et possède un record national au mile.</p>
+
+          <div class="grid" style="margin-top:14px">
+            <div class="stat">
+              <div class="muted">Discipline</div>
+              <strong id="statDisc">Demi-fond — Cross & 1000 m</strong>
+            </div>
+            <div class="stat">
+              <div class="muted">Années</div>
+              <strong id="statYears">3 ans</strong>
+            </div>
+            <div class="stat">
+              <div class="muted">Followers</div>
+              <strong id="statFollowers">~7000 (Instagram)</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESULTS / RECORD -->
+      <section id="results" class="section">
+        <div class="card">
+          <h2 id="resultsTitle">Résultats</h2>
+          <p id="resultsDesc" class="muted">Ici seront listés les records, performances et podiums (après validation).</p>
+
+          <div style="margin-top:14px" class="record">
+            <div class="left">
+              <div class="muted">Record national</div>
+              <div style="font-size:20px;font-weight:800">Record de France — Mile</div>
+              <div class="muted" id="recordNote" style="margin-top:6px">Détail : (insérer temps exact / lieu / date)</div>
+            </div>
+            <div>
+              <div class="badge" id="recordBadge">Record — Mile</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section">
+        <div class="card">
+          <h2 id="contactTitle">Contact</h2>
+          <p id="contactDesc" class="muted">Pour toute demande ou proposition : <a id="igLink" href="https://www.instagram.com/capucyneee" target="_blank">@capucyneee</a></p>
+          <p id="contactDesc" class="muted">Pour toute demande ou proposition : <a id="igLink" href="https://www.instagram.com/akos234e?igsh=MWprZGc4bGZsNTllZg==
+"_blank">@akos234e</a></p>
+
+          <p class="muted" style="margin-top:12px"> </p>
+          <pre style="background:transparent;border:0;color:var(--muted);padding:10px"></pre>
+        </div>
+      </section>
+
+      <footer>
+        <div class="muted">© 2025 Fan project — Fait avec respect. Conçu par MoonStudio</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // SPA nav + language handling
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.nav a');
+    const langButtons = document.querySelectorAll('.lang button');
+
+    function showSection(id){
+      sections.forEach(s => s.classList.toggle('active', s.id === id));
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+      // scroll top of main
+      document.querySelector('main').scrollTop = 0;
+    }
+
+    navLinks.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(a.dataset.target);
+      });
+    });
+
+    // CTA
+    document.getElementById('homeCta').addEventListener('click', () => showSection('gallery'));
+
+    // language translations (fr default)
+    const translations = {
+      fr: {
+        brandTitle:'Capucyne', brandSub:'Profil sportif • Fan-made',
+        nav: {home:'Accueil', gallery:'Galerie', about:'À propos', results:'Résultats', contact:'Contact'},
+        homeTitle:'Athlète — Demi-fond', homeDesc:"3 ans d'athlétisme — cross et 1000 m. Record de France au mile.",
+        galleryTitle:'Galerie', galleryDesc:"Photos d'entraînement et de compétition — seulement avec son accord.",
+        aboutTitle:'À propos', aboutDesc:"Capucyne pratique l'athlétisme depuis 3 ans. Spécialité : demi-fond (cross & 1000 m).",
+        resultsTitle:'Résultats', resultsDesc:'Records, podiums et performances (si fournis).',
+        contactTitle:'Contact', contactDesc:'Pour toute demande :'
+      },
+      en: {
+        brandTitle:'Capucyne', brandSub:'Sport profile • Fan-made',
+        nav: {home:'Home', gallery:'Gallery', about:'About', results:'Results', contact:'Contact'},
+        homeTitle:'Athlete — Middle distance', homeDesc:'3 years of athletics — cross & 1000 m. French mile record.',
+        galleryTitle:'Gallery', galleryDesc:'Photos from training and competitions — only with her permission.',
+        aboutTitle:'About', aboutDesc:'Capucyne has been doing athletics for 3 years. Focus: middle distance (cross & 1000 m).',
+        resultsTitle:'Results', resultsDesc:'Records, podiums and performances (if provided).',
+        contactTitle:'Contact', contactDesc:'For requests:'
+      },
+      hu: {
+        brandTitle:'Capucyne', brandSub:'Sportprofil • Rajongói oldal',
+        nav: {home:'Kezdőlap', gallery:'Galéria', about:'Róla', results:'Eredmények', contact:'Kapcsolat'},
+        homeTitle:'Sportoló — Középtáv', homeDesc:'3 éve atletizál — cross és 1000 m. Francia rekord mile-ben.',
+        galleryTitle:'Galéria', galleryDesc:'Edzés- és versenyfotók — csak az ő engedélyével.',
+        aboutTitle:'Róla', aboutDesc:'Capucyne 3 éve atletizál. Főszáma: középtáv (cross & 1000 m).',
+        resultsTitle:'Eredmények', resultsDesc:'Rekordok, dobogós helyezések és teljesítmények (ha megadja).',
+        contactTitle:'Kapcsolat', contactDesc:'Kapcsolat:'
+      }
+    };
+
+    function setLang(lang){
+      // buttons
+      langButtons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      const t = translations[lang];
+      document.getElementById('brandTitle').textContent = t.brandTitle;
+      document.getElementById('brandSub').textContent = t.brandSub;
+      document.querySelector('#nav-home .nav-label').textContent = t.nav.home;
+      document.querySelector('#nav-gallery .nav-label').textContent = t.nav.gallery;
+      document.querySelector('#nav-about .nav-label').textContent = t.nav.about;
+      document.querySelector('#nav-results .nav-label').textContent = t.nav.results;
+      document.querySelector('#nav-contact .nav-label').textContent = t.nav.contact;
+
+      document.getElementById('homeTitle').textContent = t.homeTitle;
+      document.getElementById('homeDesc').textContent = t.homeDesc;
+      document.getElementById('galleryTitle').textContent = t.galleryTitle;
+      document.getElementById('galleryDesc').textContent = t.galleryDesc;
+      document.getElementById('aboutTitle').textContent = t.aboutTitle;
+      document.getElementById('aboutDesc').textContent = t.aboutDesc;
+      document.getElementById('resultsTitle').textContent = t.resultsTitle;
+      document.getElementById('resultsDesc').textContent = t.resultsDesc;
+      document.getElementById('contactTitle').textContent = t.contactTitle;
+      document.getElementById('contactDesc').innerHTML = t.contactDesc + ' <a id="igLink" href="https://www.instagram.com/capucyneee" target="_blank">@capucyneee</a>';
+      // record badge label translation (small)
+      document.querySelector('.record .badge').textContent = lang === 'fr' ? 'Record — Mile' : (lang === 'en' ? 'Record — Mile' : 'Rekord — Mile');
+    }
+
+    // init language buttons and default french
+    const buttons = document.querySelectorAll('.lang button');
+    buttons[0].dataset.lang='fr';
+    buttons[1].dataset.lang='en';
+    buttons[2].dataset.lang='hu';
+    buttons.forEach(b => b.addEventListener('click', ()=> setLang(b.dataset.lang)));
+    setLang('fr');
+
+    // quick: if you want to prefill record details programmatically:
+    // document.getElementById('recordNote').textContent = 'Temps: 4:35.12 — Ville, Date';
+    // document.getElementById('statFollowers').textContent = '7000 (Instagram)';
+
+    // keyboard nav (optional): 1..5 keys
+    window.addEventListener('keydown', (e) => {
+      if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+      if(e.key >= '1' && e.key <= '5'){ const idx = parseInt(e.key)-1; navLinks[idx] && navLinks[idx].click(); }
+    });
+  </script>
+</body>
+</html>
